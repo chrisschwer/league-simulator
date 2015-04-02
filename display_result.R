@@ -1,17 +1,25 @@
 display_result <- function (result, colour = "grey", 
                             low = "white", high = "steelblue",
-                            Titel = "Endplatzierung")
+                            Titel = "Endplatzierung",
+                            labeling = FALSE)
   
   # Displays results from SimWrapper in a heatmap
   # result : results to display
   # colour : background colour for tiles
   # low : colour for lower end of scale
   # high : colour for higher end of scale
-  
+  # Titel : text of the title line of the chart
+  # labeling : boolean, if true the tiles of the heatmap
+  #            are labeled with the values in percent
   
 {
   require(reshape2)
   require(ggplot2)
+  
+  if (labeling) 
+  {
+    result <- round(result*100,0)
+  }
   
   result.m <- melt (result)
   plot <- ggplot (result.m) + 
@@ -29,6 +37,11 @@ display_result <- function (result, colour = "grey",
   plot <- plot +
     theme (axis.ticks = element_line (linetype = 0)) +
     scale_y_reverse(breaks = 1:18)
+  
+  if (labeling) 
+  {
+    plot <- plot + geom_text (aes (label = value))
+  }
   
   
   return (plot)  
