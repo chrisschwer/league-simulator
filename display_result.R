@@ -1,7 +1,7 @@
 display_result <- function (result, colour = "grey", 
                             low = "white", high = "steelblue",
                             Titel = "Endplatzierung",
-                            labeling = FALSE)
+                            labeling = FALSE, Teams = 18)
   
   # Displays results from SimWrapper in a heatmap
   # result : results to display
@@ -36,7 +36,7 @@ display_result <- function (result, colour = "grey",
                                        hjust = 0, colour = "grey50"))
   plot <- plot +
     theme (axis.ticks = element_line (linetype = 0)) +
-    scale_y_reverse(breaks = 1:18)
+    scale_y_reverse(breaks = 1:Teams)
   
   if (labeling) 
   {
